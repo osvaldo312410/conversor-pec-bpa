@@ -1946,7 +1946,7 @@ def exportar_txt():
         output = io.StringIO()
         
         # Cabeçalho fixo (sem #)
-        cabecalho = "01#BPA#2025070000020000011280UNIDADE SAUDE                  99999999999999999999SECRETARIA DE SAUDE DE ESMERALDAS          MD04.10"
+        cabecalho = "01#BPA#2025070000020000011280UNIDADE SAUDE                  99999999999999999999SECRETARIA DE SAUDE DE TESTE          MD04.10"
         output.write(cabecalho + '\n')
         
         for item in resultados:
