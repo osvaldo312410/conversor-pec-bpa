@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download BD SIA</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/bdsia.css">
+</head>
+<body class="bg-light">
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <!-- Cabeçalho -->
+                <div class="text-center mb-4">
+                    <h1 class="display-5 fw-bold text-primary">
+                        <i class="bi bi-download me-2"></i>Download do BD SIA
+                    </h1>
+                    <p class="lead text-muted">Faça o download e instalação automática do banco de dados do SIA</p>
+                </div>
+
+                <!-- Card Principal -->
+                <div class="card">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="card-title mb-0">
+                            <i class="bi bi-gear me-2"></i>Configuração do Download
+                        </h5>
+                    </div>
+                    
+                    <div class="card-body">
+                        <!-- Campo Competência -->
+                        <div class="mb-4">
+                            <label for="competencia" class="form-label fw-semibold">
+                                <i class="bi bi-calendar me-1"></i>Competência (AAAAMM):
+                            </label>
+                            <input type="text" id="competencia" class="form-control form-control-lg" 
+                                   placeholder="Ex: 202508" pattern="\d{6}" maxlength="6">
+                            <div class="form-text">Informe o ano e mês no formato AAAAMM</div>
+                        </div>
+
+                        <!-- Informação do arquivo selecionado -->
+                        <div id="download-info" class="alert alert-info" style="display:none;">
+                            <i class="bi bi-info-circle me-2"></i>
+                            <span id="file-name"></span>
+                        </div>
+
+                        <!-- Barra de progresso do download -->
+                        <div class="mb-4">
+                            <label class="form-label fw-semibold">
+                                <i class="bi bi-cloud-download me-1"></i>Progresso do Download:
+                            </label>
+                            <div class="progress" style="height: 30px;">
+                                <div id="progress-bar" class="progress-bar progress-bar-striped progress-bar-animated" 
+                                     role="progressbar" style="width: 0%;">0%</div>
+                            </div>
+                            <div id="progress-text" class="mt-2 text-muted small"></div>
+                        </div>
+
+                        <!-- Barra de progresso da conversão -->
+                        <div id="convert-progress-wrapper" style="display:none;">
+                            <label class="form-label fw-semibold">
+                                <i class="bi bi-database me-1"></i>Progresso da Conversão:
+                            </label>
+                            <div class="progress" style="height: 30px;">
+                                <div id="convert-progress-bar" class="progress-bar progress-bar-striped progress-bar-animated bg-success" 
+                                     role="progressbar" style="width: 0%;">0%</div>
+                            </div>
+                            <div id="convert-progress-text" class="mt-2 text-muted small"></div>
+                        </div>
+
+                        <!-- Mensagens de status -->
+                        <div id="status-messages" class="mt-3"></div>
+                    </div>
+
+                    <!-- Rodapé com botões -->
+                    <div class="card-footer bg-light">
+                        <div class="d-grid gap-2">
+                            <button id="btnDownload" type="button" class="btn btn-primary btn-lg btn_download_bdsia">
+                                <i class="bi bi-download me-2"></i>Iniciar Download
+                            </button>
+                            
+                            <button id="btnCheckInstall" type="button" class="btn btn-info btn-lg" style="display:none;">
+                                <i class="bi bi-check-circle me-2"></i>Verificar Instalação
+                            </button>
+                            
+                            <button id="btnConvert" type="button" class="btn btn-success btn-lg" disabled>
+                                <i class="bi bi-gear me-2"></i>Converter Tabelas
+                            </button>
+                            
+                            <a href="/index" class="btn btn-outline-secondary btn-lg">
+                                <i class="bi bi-arrow-left me-2"></i>Voltar para Página Principal
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Instruções -->
+                <div class="card mt-4">
+                    <div class="card-header bg-info text-white">
+                        <h6 class="card-title mb-0">
+                            <i class="bi bi-info-circle me-2"></i>Instruções
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <ol class="list-group list-group-numbered">
+                            <li class="list-group-item border-0">Informe a competência no formato AAAAMM</li>
+                            <li class="list-group-item border-0">Clique em "Iniciar Download" para baixar o arquivo</li>
+                            <li class="list-group-item border-0">Aguarde a instalação automática do BDSIA</li>
+                            <li class="list-group-item border-0">Clique em "Converter Tabelas" para criar o banco SQLite</li>
+                            <li class="list-group-item border-0">Volte para a página principal para visualizar os dados</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast para mensagens -->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div id="successToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header bg-success text-white">
+                <i class="bi bi-check-circle me-2"></i>
+                <strong class="me-auto">Sucesso</strong>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body" id="successMessage"></div>
+        </div>
+        
+        <div id="errorToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header bg-danger text-white">
+                <i class="bi bi-exclamation-circle me-2"></i>
+                <strong class="me-auto">Erro</strong>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body" id="errorMessage"></div>
+        </div>
+    </div>
+
+    <!-- Spinner -->
+    <div id="loader">
+        <div class="spinner"></div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/js/bdsia_download.js"></script>
+    <script src="/static/js/spinner.js"></script>
+</body>
+</html>

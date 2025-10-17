@@ -1,0 +1,50 @@
+*{
+    font-size: 14px;
+}
+
+.card {
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+    border: none;
+    border-radius: 1rem;
+}
+.progress {
+    border-radius: 0.5rem;
+}
+.btn {
+    border-radius: 0.5rem;
+    font-weight: 500;
+}
+
+/* Spinner styles */
+    /* Fundo do loader */
+    #loader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(3, 3, 3, 0.753);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      display: none;
+    }
+    #loader.hidden {
+      display: none;
+    }
+
+    /* Spinner circular */
+    .spinner {
+      border: 8px solid #f3f3f3;
+      border-top: 8px solid #3498db;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0%   { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }

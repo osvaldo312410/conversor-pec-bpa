@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dados do Município</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/municipio.css">
+</head>
+<body class="bg-light">
+    <div class="container-fluid py-4">
+        <div class="row">
+            <!-- Cabeçalho -->
+            <div class="col-12 mb-4">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h1 class="display-5 fw-bold text-primary" style="font-size: 20px;">
+                        <i class="bi bi-buildings me-2" style="font-size: 20px;"></i>Dados do Município
+                    </h1>
+                    <a href="/index" class="btn btn-outline-secondary">
+                        <i class="bi bi-arrow-left me-2"></i>Voltar
+                    </a>
+                </div>
+            </div>
+
+            <!-- Formulário de Cadastro -->
+            <div class="col-lg-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="card-title mb-0">
+                            <i class="bi bi-plus-circle me-2"></i>Cadastrar Município
+                        </h5>
+                    </div>
+                    
+                    <div class="card-body">
+                        <form id="formMunicipio">
+                            <input type="hidden" id="id_registro" name="id_registro">
+                            
+                            <div class="mb-3">
+                                <label for="no_municipio" class="form-label required-label">Nome do Município</label>
+                                <input type="text" class="form-control" id="no_municipio" name="no_municipio" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="ds_sigla" class="form-label required-label">Sigla</label>
+                                <select class="form-select" id="ds_sigla" name="ds_sigla" required>
+                                    <option value="">Selecione um estado</option>
+                                    <option value="AC">Acre</option>
+                                    <option value="AL">Alagoas</option>
+                                    <option value="AP">Amapá</option>
+                                    <option value="AM">Amazonas</option>
+                                    <option value="BA">Bahia</option>
+                                    <option value="CE">Ceará</option>
+                                    <option value="DF">Distrito Federal</option>
+                                    <option value="ES">Espírito Santo</option>
+                                    <option value="GO">Goiás</option>
+                                    <option value="MA">Maranhão</option>
+                                    <option value="MT">Mato Grosso</option>
+                                    <option value="MS">Mato Grosso do Sul</option>
+                                    <option value="MG">Minas Gerais</option>
+                                    <option value="PA">Pará</option>
+                                    <option value="PB">Paraíba</option>
+                                    <option value="PR">Paraná</option>
+                                    <option value="PE">Pernambuco</option>
+                                    <option value="PI">Piauí</option>
+                                    <option value="RJ">Rio de Janeiro</option>
+                                    <option value="RN">Rio Grande do Norte</option>
+                                    <option value="RS">Rio Grande do Sul</option>
+                                    <option value="RO">Rondônia</option>
+                                    <option value="RR">Roraima</option>
+                                    <option value="SC">Santa Catarina</option>
+                                    <option value="SP">São Paulo</option>
+                                    <option value="SE">Sergipe</option>
+                                    <option value="TO">Tocantins</option>
+                                </select>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="nu_cnes" class="form-label required-label">Número CNES</label>
+                                <input type="text" class="form-control" id="nu_cnes" name="nu_cnes" maxlength="7" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="nu_cnpj" class="form-label required-label">CNPJ</label>
+                                <input type="text" class="form-control" id="nu_cnpj" name="nu_cnpj" maxlength="14" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="co_ibge" class="form-label required-label">Código IBGE</label>
+                                <input type="text" class="form-control" id="co_ibge" name="co_ibge" maxlength="6" required>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="card-footer bg-light">
+                        <div class="d-grid gap-2">
+                            <button type="button" class="btn btn-secondary" id="btnCancelar">
+                                <i class="bi bi-x-circle me-2"></i>Cancelar
+                            </button>
+                            <button type="button" class="btn btn-primary" id="btnSalvar">
+                                <i class="bi bi-check-circle me-2"></i>Salvar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tabela de Municípios -->
+            <div class="col-lg-8">
+                <div class="card h-100">
+                    <div class="card-header bg-warning text-dark">
+                        <h5 class="card-title mb-0">
+                            <i class="bi bi-list-ul me-2"></i>Municípios Cadastrados
+                        </h5>
+                    </div>
+                    
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-hover" id="tabelaMunicipios">
+                                <thead class="table-warning">
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Nome</th>
+                                        <th>Sigla</th>
+                                        <th>CNES</th>
+                                        <th>CNPJ</th>
+                                        <th>IBGE</th>
+                                        <th>Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbodyMunicipios">
+                                    <!-- Dados serão carregados via JavaScript -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast para mensagens -->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div id="successToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header bg-success text-white">
+                <i class="bi bi-check-circle me-2"></i>
+                <strong class="me-auto">Sucesso</strong>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body" id="successMessage"></div>
+        </div>
+        
+        <div id="errorToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header bg-danger text-white">
+                <i class="bi bi-exclamation-circle me-2"></i>
+                <strong class="me-auto">Erro</strong>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body" id="errorMessage"></div>
+        </div>
+    </div>
+
+    <!-- Spinner -->
+    <div id="loader">
+        <div class="spinner"></div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/js/municipio.js"></script>
+    <script src="/static/js/spinner.js"></script>
+</body>
+</html>

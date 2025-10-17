@@ -1,0 +1,117 @@
+* {
+    font-size: 14px;
+}
+
+.app{
+    background-color: #bbbaba;
+}
+
+body {
+    overflow-x: hidden;
+}
+
+#sidebar {
+    height: 100vh;
+    position: fixed;
+    z-index: 100;
+    transition: all 0.3s ease;
+    background-color: #f8f9fa;
+    border-right: 1px solid #dee2e6;
+    width: 250px;
+}
+
+#sidebar .nav-link {
+    background-color: #ffffff;
+    color: #0b5ed7;
+    margin-bottom: 10px;
+}
+
+#sidebar .nav-link:hover {
+    background-color: #082e68;
+    color: #ffffff ;
+}
+
+#sidebar.collapsed {
+    width: 80px !important;
+}
+
+#sidebar.collapsed .nav-link span {
+    display: none;
+}
+
+#sidebar.collapsed .sidebar-title {
+    display: none;
+}
+
+#sidebar .nav-item {
+    white-space: nowrap;
+}
+
+#content {
+    margin-left: 250px;
+    transition: margin-left 0.3s ease;
+}
+
+#content.collapsed {
+    margin-left: 60px;
+}
+
+@media (max-width: 768px) {
+    #sidebar {
+        width: 60px !important;
+    }
+    
+    #sidebar .nav-link span {
+        display: none;
+    }
+    
+    #sidebar .sidebar-title {
+        display: none;
+    }
+    
+    #content {
+        margin-left: 60px;
+    }
+    
+    #sidebar.collapsed {
+        margin-left: -60px;
+    }
+    
+    #content.collapsed {
+        margin-left: 0;
+    }
+}
+
+/* Spinner styles */
+    /* Fundo do loader */
+    #loader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(3, 3, 3, 0.753);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      display: none;
+    }
+    #loader.hidden {
+      display: none;
+    }
+
+    /* Spinner circular */
+    .spinner {
+      border: 8px solid #f3f3f3;
+      border-top: 8px solid #3498db;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0%   { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }

@@ -1,0 +1,88 @@
+body {
+            background-color: #f8f9fa;
+            padding-top: 20px;
+            padding-bottom: 60px;
+        }
+        .card {
+            border-radius: 15px;
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+            margin-top: 2rem;
+        }
+        .card-header {
+            border-radius: 15px 15px 0 0 !important;
+            background: linear-gradient(45deg, #0d6efd, #0dcaf0);
+            color: white;
+        }
+        .btn-primary {
+            background: linear-gradient(45deg, #0d6efd, #0dcaf0);
+            border: none;
+        }
+        .btn-primary:hover {
+            background: linear-gradient(45deg, #0b5ed7, #0ba6c8);
+        }
+        .form-control:focus {
+            border-color: #0dcaf0;
+            box-shadow: 0 0 0 0.25rem rgba(13, 202, 240, 0.25);
+        }
+        .config-icon {
+            font-size: 1.2rem;
+            margin-right: 8px;
+        }
+        .password-toggle {
+            cursor: pointer;
+        }
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+        }
+        .navbar {
+            background: linear-gradient(45deg, #0d6efd, #0dcaf0);
+        }
+        .navbar-brand {
+            color: white !important;
+            font-weight: 600;
+        }
+        .back-button {
+            color: white;
+            text-decoration: none;
+        }
+        .back-button:hover {
+            color: #e9ecef;
+        }
+
+/* Spinner styles */
+    /* Fundo do loader */
+    #loader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(3, 3, 3, 0.753);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      display: none;
+    }
+    #loader.hidden {
+      display: none;
+    }
+
+    /* Spinner circular */
+    .spinner {
+      border: 8px solid #f3f3f3;
+      border-top: 8px solid #3498db;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0%   { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+

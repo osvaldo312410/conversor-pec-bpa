@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conversor PEC/BPA</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="/static/css/index.css">
+</head>
+<body>
+    <div class="d-flex app">
+        <!-- Sidebar -->
+        <div id="sidebar" class="d-flex flex-column p-3 bg-primary">
+            <a href="#" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-decoration-none bg-white text-primary rounded p-2 w-100">
+                <i class="bi bi-arrow-repeat fs-4 me-2"></i>
+                <span class="fs-6 fw-bold sidebar-title">Conversor PEC/BPA</span>
+            </a>
+            <hr>
+            <ul class="nav nav-pills flex-column mb-auto">
+                <li class="nav-item">
+                    <a href="#" class="nav-link active">
+                        <i class="bi bi-house-door"></i>
+                        <span>Início</span>
+                    </a>
+                </li>
+                <li class="mt-2">
+                    <a href="/conecta_pec" class="nav-link">
+                        <i class="bi bi-plugin"></i>
+                        <span>Conexão com PEC</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/download_bdsia" class="nav-link">
+                        <i class="bi bi-cloud-arrow-down-fill"></i>
+                        <span>BD SIA</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/municipio_page" class="nav-link">
+                        <i class="bi bi-house-door"></i>
+                        <span>Dados Municipio </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#modalProducao">
+                        <i class="bi bi-cloud-arrow-down-fill"></i>
+                        <span>Produção</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/config" class="nav-link">
+                        <i class="bi bi-gear"></i>
+                        <span>Configurar Procedimentos</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <form id="formExport" class="d-inline">                       
+                        <button type="submit" class="nav-link border-0 bg-white text-primary w-100" style="cursor: pointer;">
+                            <div style="margin-left: -100px;">
+                                <i class="bi bi-filetype-txt"></i>
+                                <span>Exportar .TXT</span>
+                            </div>
+                        </button>                       
+                    </form>
+                </li>
+
+                <li>
+                    <a href="#" class="nav-link">
+                        <i class="bi bi-speedometer2"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>               
+            </ul>
+            <hr>
+        </div>
+
+        <!-- Conteúdo Principal -->
+        <div id="content" class="p-4">
+            <!-- Topbar -->
+            <nav class="navbar navbar-expand-lg rounded mb-4" style="background-color: #ececec;">
+                <div class="container-fluid">
+                    <button id="sidebarToggle" class="btn btn-primary">
+                        <i class="bi bi-list"></i>
+                    </button>
+                    <!-- Aqui vai a mensagem de retorno -->
+                    <div id="msgExport" style="margin-top:5px;color:green;"></div>
+                </div>
+            </nav>
+
+            <!-- Conteúdo da Página -->
+            <div class="container">
+                <div style="height: 65vh; overflow-x: auto;">
+                    <table class="table table-striped table-bordered table-hover text-nowrap">
+                        <thead class="table-warning">
+                            <tr>
+                                <th style="font-size: 12px !important;">ID</th>
+                                <th style="font-size: 12px !important;">CNES</th>
+                                <th style="font-size: 12px !important;">Competência</th>
+                                <th style="font-size: 12px !important;">CNS Prof</th>
+                                <th style="font-size: 12px !important;">CBO</th>
+                                <th style="font-size: 12px !important;">Data Atend</th>
+                                <th style="font-size: 12px !important;">Folha</th>
+                                <th style="font-size: 12px !important;">Sequência</th>
+                                <th style="font-size: 12px !important;">Procedimento</th>
+                                <th style="font-size: 12px !important;">CNS Paciente</th>
+                                <th style="font-size: 12px !important;">Sexo</th>
+                                <th style="font-size: 12px !important;">IBGE</th>
+                                <th style="font-size: 12px !important;">CID</th>
+                                <th style="font-size: 12px !important;">Idade</th>
+                                <th style="font-size: 12px !important;">Quantidade</th>
+                                <th style="font-size: 12px !important;">Categoria</th>
+                                <th style="font-size: 12px !important;">Nº Autorização</th>
+                                <th style="font-size: 12px !important;">Orgão</th>
+                                <th style="font-size: 12px !important;">Nome Paciente</th>
+                                <th style="font-size: 12px !important;">Data Nasc</th>
+                                <th style="font-size: 12px !important;">Raça/Cor</th>
+                                <th style="font-size: 12px !important;">Etnia</th>
+                                <th style="font-size: 12px !important;">Nacionalidade</th>
+                                <th style="font-size: 12px !important;">Serviço</th>
+                                <th style="font-size: 12px !important;">Classificação</th>
+                                <th style="font-size: 12px !important;">Equipe Seq</th>
+                                <th style="font-size: 12px !important;">Equipe Área</th>
+                                <th style="font-size: 12px !important;">CNPJ</th>
+                                <th style="font-size: 12px !important;">CEP</th>
+                                <th style="font-size: 12px !important;">Logradouro</th>
+                                <th style="font-size: 12px !important;">Endereço</th>
+                                <th style="font-size: 12px !important;">Complemento</th>
+                                <th style="font-size: 12px !important;">Número</th>
+                                <th style="font-size: 12px !important;">Bairro</th>
+                                <th style="font-size: 12px !important;">Telefone</th>
+                                <th style="font-size: 12px !important;">Email</th>
+                                <th style="font-size: 12px !important;">INE</th>
+                                <th style="font-size: 12px !important;">CPF Paciente</th>
+                                <th style="font-size: 12px !important;">FIM</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in prod %}
+                            <tr style="background-color: #fff;">
+                                <td style="font-size: 12px !important;">{{ item[1] or '' }}</td>
+                                <td style="font-size: 12px !important;">{{ item[2] or '' }}</td>
+                                <td style="font-size: 12px !important;">{{ item[3] or '' }}</td>
+                                <td style="font-size: 12px !important;">{{ item[4] or '' }}</td>
+                                <td style="font-size: 12px !important;">{{ item[5] or '' }}</td>
+                                <td style="font-size: 12px !important;">{{ item[6] or '' }}</td>
+                                <td style="font-size: 12px !important;">{{ item[7] or '' }}</td>
+                                <td style="font-size: 12px !important;">{{ item[8] or '' }}</td>
+                                <td style="font-size: 12px !important;">{{ item[9] or '' }}</td>
+                                <td style="font-size: 12px !important;">{{ item[10] or '' }}</td>
+                                <td style="font-size: 12px !important;">{{ item[11] or '' }}</td>                                
+                                <td style="font-size: 12px !important;">{{ item[12] or '' }}</td>
+                                <td style="font-size: 12px !important;">{{ item[43] or '' }}</td>
+                                <td style="font-size: 12px !important;">{{ item[14] or '' }}</td>
+                                <td style="font-size: 12px !important;">{{ item[15] or '' }}</td>
+                                <td style="font-size: 12px !important;">{{ item[16] or '' }}</td>
+                                <td style="font-size: 12px !important;">{{ item[17] or '' }}</td>
+                                <td style="font-size: 12px !important;">{{ item[18] or '' }}</td>
+                                <td style="font-size: 12px !important;">{{ item[19] or '' }}</td>
+                                <td style="font-size: 12px !important;">{{ item[20] or '' }}</td>
+                                <td style="font-size: 12px !important;">{{ item[21] or '' }}</td>
+                                <td style="font-size: 12px !important;">{{ item[22] or '' }}</td>                                
+                                <td style="font-size: 12px !important;">{{ item[23] or '' }}</td>
+                                <td style="font-size: 12px !important;">{{ item[44] or '' }}</td>
+                                <td style="font-size: 12px !important;">{{ item[45] or '' }}</td>
+                                <td style="font-size: 12px !important;">{{ item[26] or '' }}</td>
+                                <td style="font-size: 12px !important;">{{ item[27] or '' }}</td>
+                                <td style="font-size: 12px !important;">{{ item[28] or '' }}</td>
+                                <td style="font-size: 12px !important;">{{ item[29] or '' }}</td>
+                                <td style="font-size: 12px !important;">{{ item[30] or '' }}</td>
+                                <td style="font-size: 12px !important;">{{ item[31] or '' }}</td>
+                                <td style="font-size: 12px !important;">{{ item[32] or '' }}</td>
+                                <td style="font-size: 12px !important;">{{ item[33] or '' }}</td>
+                                <td style="font-size: 12px !important;">{{ item[34] or '' }}</td>
+                                <td style="font-size: 12px !important;">{{ item[35] or '' }}</td>
+                                <td style="font-size: 12px !important;">{{ item[36] or '' }}</td>
+                                <td style="font-size: 12px !important;">{{ item[37] or '' }}</td>
+                                <td style="font-size: 12px !important;">{{ item[39] or '' }}</td>
+                                <td style="font-size: 12px !important;">{{ item[38] or '' }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>                  
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-2">
+        <!-- Paginação com Bootstrap -->
+        {% if total_paginas > 1 %}
+        <nav aria-label="Navegação de páginas">
+            <ul class="pagination justify-content-center">
+                <!-- Botão Página Anterior -->
+                <li class="page-item {% if page <= 1 %}disabled{% endif %}">
+                    <a class="page-link" href="{{ url_for('index', page=page-1) if page > 1 else '#' }}" aria-label="Anterior">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+        
+                <!-- Primeira página (se necessário) -->
+                {% if start_page > 1 %}
+                <li class="page-item">
+                    <a class="page-link" href="{{ url_for('index', page=1) }}">1</a>
+                </li>
+                {% if start_page > 2 %}
+                <li class="page-item disabled">
+                    <span class="page-link">...</span>
+                </li>
+                {% endif %}
+                {% endif %}
+        
+                <!-- Páginas numeradas -->
+                {% for p in range(start_page, end_page + 1) %}
+                <li class="page-item {% if p == page %}active{% endif %}">
+                    {% if p == page %}
+                    <span class="page-link">{{ p }}</span>
+                    {% else %}
+                    <a class="page-link" href="{{ url_for('index', page=p) }}">{{ p }}</a>
+                    {% endif %}
+                </li>
+                {% endfor %}
+        
+                <!-- Última página (se necessário) -->
+                {% if end_page < total_paginas %}
+                {% if end_page < total_paginas - 1 %}
+                <li class="page-item disabled">
+                    <span class="page-link">...</span>
+                </li>
+                {% endif %}
+                <li class="page-item">
+                    <a class="page-link" href="{{ url_for('index', page=total_paginas) }}">{{ total_paginas }}</a>
+                </li>
+                {% endif %}
+        
+                <!-- Botão Próxima Página -->
+                <li class="page-item {% if page >= total_paginas %}disabled{% endif %}">
+                    <a class="page-link" href="{{ url_for('index', page=page+1) if page < total_paginas else '#' }}" aria-label="Próximo">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        {% endif %}
+    </div>
+
+    <!-- Modal de Produção -->
+    <div class="modal fade" id="modalProducao" tabindex="-1" aria-labelledby="modalProducaoLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- Cabeçalho -->
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalBDsiaLabel">Download da Produção do ESUS-PEC</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <!-- REMOVA O FORM E DEIXE APENAS O CONTEÚDO -->
+                <div>
+                    <!-- Corpo da modal -->
+                    <div class="modal-body">
+
+                        <!-- Campo Competência -->
+                        <label for="competencia">Competência (AAAAMM):</label>
+                        <input type="text" id="competencia" name="competencia" class="form-control mb-3" required>
+
+                        <!-- Campo Competência -->
+                        <label for="competencia">CNES da Unidade:</label>
+                        <input type="text" id="cnes" name="cnes" class="form-control mb-3" max="7">
+
+                        <!-- Informação do arquivo selecionado -->
+                        <div id="download-info" class="mb-2" style="display:none;">
+                            <small id="file-name"></small>
+                        </div>
+
+                        <!-- Barra de progresso do download -->
+                        <div class="progress" style="height: 28px;">
+                            <div id="progress-bar" class="progress-bar progress-bar-striped progress-bar-animated"
+                                role="progressbar" style="width: 0%;">0%</div>
+                        </div>
+                        <div id="progress-text" class="mt-2"></div>
+
+                    </div>
+
+                    <!-- Rodapé com botões -->
+                    <div class="modal-footer d-flex flex-column">
+                        <!-- MUDE PARA type="button" E REMOVA O SUBMIT -->
+                        <button id="btnDownload" type="button" class="btn btn-primary w-100 mb-2 btn_download">Download</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Adicione este código no seu modal, perto da barra de progresso -->
+    <div id="loading-spinner" style="display: none; text-align: center; margin: 10px 0;">
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Carregando...</span>
+        </div>
+        <p>Processando dados...</p>
+    </div>
+
+    <!-- Spinner -->
+    <div id="loader">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- Bootstrap 5 JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/js/index.js"></script>
+    <script src="/static/js/bdsia_download.js"></script>
+    <script src="/static/js/processa_prod_esus.js"></script>
+    <script src="/static/js/spinner.js"></script>
+    <script src="/static/js/export.js"></script>
+
+</body>
+</html>
